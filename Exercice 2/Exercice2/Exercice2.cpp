@@ -10,13 +10,13 @@ using namespace std;
 class Engine
 {
 
-private:
+protected:
   double t, tfin; // Temps courant et temps final
   unsigned int nsteps; // Nombre d'iterations
   double B0, Kappa; // Intensite et gradient du champ magnetique
   double E;   // Intensite du champ electrique
   double m, q;  // Masse et charge de la particule
-  double lamda,omega;
+  double lambda,omega;
   double x0, y0, vx0, vy0;  // Position et vitesse initiales de la particle
   unsigned int sampling; // Nombre d'iterations entre chaque ecriture des diagnostics
   unsigned int last; // Nombre d'iterations depuis la derniere ecriture des diagnostics
@@ -50,7 +50,7 @@ private:
 
 protected:
   double dt; // Pas de temps
-  double vxOld, vyOld. k1, k2;
+  double vxOld, vyOld, k1, k2;
   double x, y, vx, vy;  // Position et vitesse de la particle
 
 public:
@@ -65,8 +65,8 @@ public:
     m        = configFile.get<double>("m");
     q        = configFile.get<double>("q");
     B0       = configFile.get<double>("B0");
-    lamda    = q / m;
-    omega    = lamda * B0;
+    lambda    = q / m;
+    omega    = lambda * B0;
     Kappa    = configFile.get<double>("Kappa");
     E        = configFile.get<double>("E");
     x0       = configFile.get<double>("x0");
@@ -117,12 +117,12 @@ public:
   {
     // TODO: Mettre a jour x, y, vx, vy avec le schema d'Euler
 
-    vxOld = vx
+    vxOld = vx;
 
     x  += vx * dt;
     y  += vy * dt;
     vx += omega * vy * dt;
-    vy += lamda * ( E- B0 * vxOld) * dt;
+    vy += lambda * ( E- B0 * vxOld) * dt;
 
   }
 };
@@ -136,8 +136,8 @@ public:
   {
     // TODO: Mettre a jour x, y, vx, vy avec le schema d'Euler-Cromer
 
-    vx += lamda * vy * dt;
-    vy += lamda * (E- B0 * vx) * dt;
+    vx += lambda * vy * dt;
+    vy += lambda * (E- B0 * vx) * dt;
     x  += vx * dt;
     y  += vy * dt;
 
@@ -152,7 +152,7 @@ public:
   void step()
   {
     // TODO: Mettre a jour x, y, vx, vy avec le schema de Runge-Kutta d'ordre 2
-
+    /*
     vxOld = vx;
     vyOld = vy;
 
@@ -174,9 +174,25 @@ public:
     vx += k2;
 
     //Vy:
-    k1 =  dt *lamda *(E - B0 * vxOld);
-    k2 = - dt *(E - lamda * (vxOld + 0.5 * k1 ));
-    vy += k2;
+    k1 =  dt *lambda *(E - B0 * vxOld);
+    k2 = - dt *(E - lambda * (vxOld + 0.5 * k1 ));
+    vy += k2;*/
+
+    vxOld = vx;
+    vyOld = vy;
+
+
+    k2 = omega*(vyOld + 0.5*dt*lambda*(E - B0*vxOld))*dt;
+    vx = vxOld + k2;
+
+    k2 = lambda*(E - B0*(vxOld + 0.5*dt*omega*vyOld))*dt;
+    vy = vyOld + k2;
+
+    k2 = (vxOld + 0.5*dt*omega*vyOld)*dt;
+    x = x + k2;
+
+    k2 = (vyOld + 0.5*dt*lambda*(E - B0*vxOld))*dt;
+    y = y + k2;
 
   }
 };
