@@ -1,0 +1,33 @@
+\documentclass[a4paper,12pt]{article}
+
+    \usepackage{graphicx}
+    \usepackage{siunitx}
+    \usepackage{mathtools}
+    \usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+    
+    \baselineskip=16pt
+    \parindent=15pt
+    \parskip=5pt
+    
+    % Custom lengths
+    \newlength{\plotwidth} % Universal width of Matlab figures
+    \setlength{\plotwidth}{12cm}
+    
+    % Custom commands
+    \def \be {\begin{equation}}
+    \def \ee {\end{equation}}
+    \def \dd {{\rm d}}
+    \newcommand{\mail}[1]{{\href{mailto:#1}{#1}}} % Mail hyperlink
+    \newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
+    \newcommand{\abs}[1]{\lvert#1\rvert} % Absolute value
+
+\begin{document}
+
+\title{From the Earth to the Moon}
+\author{Lucien Huber, Aman Berdyev \\
+{\small \mail{lucien.huber@epfl.ch} , \mail{aman.berdyev@epfl.ch}}}
+\date{\today}
+\maketitle
+    
+\end{document}
+
