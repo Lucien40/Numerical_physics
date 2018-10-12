@@ -10,6 +10,17 @@
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
+
+q      = 1.6022e-19;
+m      = 1.6726e-27;
+B0     = 3;
+E      = 0;
+Kappa  = 0;
+x0     = 0;
+y0     = 0;
+vx0    = 0;
+vy0    = 4e5;
+
 repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Windows)
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
@@ -17,11 +28,13 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 nsimul = 20; % Nombre de simulations a faire
 
 nsteps = round(logspace(2,4,nsimul)); % Nombre d'iterations entier de 10^2 a 10^4
-tfin = 0; % TODO: Remplacer la valeur de tfin
+tfin = 1.0932e-07; % TODO: Remplacer la valeur de tfin
 dt = tfin ./ nsteps;
 
 paramstr = 'nsteps'; % Nom du parametre a scanner
 param = nsteps; % Valeurs du parametre a scanner
+
+
 
 %% Simulations %%
 %%%%%%%%%%%%%%%%%
@@ -44,13 +57,13 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     t = data(:,1);
     x = data(:,2);
     y = data(:,3);
-    x_th = sin(t); % TODO: Entrer la vraie solution analytique en fonction du temps
-    y_th = cos(t); % TODO: Entrer la vraie solution analytique en fonction du temps
+    x_th = -vy0*m/(q*B0)*cos((q*B0/m)*t); % TODO: Entrer la vraie solution analytique en fonction du temps
+    y_th = vy0*m/(q*B0)*sin((q*B0/m)*t); % TODO: Entrer la vraie solution analytique en fonction du temps
     error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
 end
 
 figure
-loglog(dt, error, 'k+')
+plot(dt, error, 'k+')
 xlabel('\Delta t')
 ylabel('Maximum de l''erreur sur la position')
 grid on

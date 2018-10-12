@@ -23,7 +23,7 @@ private:
   // Variables personnelles
   double vxold, vyold; // Stockage d'anciennes valeurs de vx et vy
   double k2; // Variable k2 pour la methode de Runge-Kutta
-  double lambda(q/m);
+  double lambd;
   double omega(lambda*B0);
 
   // Ecriture des diagnostics
