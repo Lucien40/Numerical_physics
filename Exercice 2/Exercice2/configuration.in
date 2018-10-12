@@ -1,5 +1,5 @@
 % Parametres physiques :
-tfin   = 0
+tfin   = 1.0932e-7
 q      = 1.6022e-19
 m      = 1.6726e-27
 B0     = 3
