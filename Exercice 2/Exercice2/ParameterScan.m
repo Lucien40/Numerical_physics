@@ -50,6 +50,7 @@ end
 
 %% Analyse %%
 %%%%%%%%%%%%%
+%figure
 
 error = zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -57,8 +58,11 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     t = data(:,1);
     x = data(:,2);
     y = data(:,3);
+    
+    %plot(x,y)
     x_th = -vy0*m/(q*B0)*cos((q*B0/m)*t); % TODO: Entrer la vraie solution analytique en fonction du temps
     y_th = vy0*m/(q*B0)*sin((q*B0/m)*t); % TODO: Entrer la vraie solution analytique en fonction du temps
+    %plot(x_th,y_th)
     error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
 end
 
