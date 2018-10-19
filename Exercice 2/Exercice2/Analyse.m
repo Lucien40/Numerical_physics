@@ -1,5 +1,5 @@
 % Nom du fichier d'output a analyser
-filename = 'Euler.out';
+filename = 'nsteps=10000.out';
 
 % Chargement des donnees
 output = load(filename);
@@ -10,7 +10,7 @@ x = output(:,2);
 y = output(:,3);
 vx = output(:,4);
 vy = output(:,5);
-energy = output(:,6);
+energy = output(:,6)
 mu = output(:,7);
 
 clear output
