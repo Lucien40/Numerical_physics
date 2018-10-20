@@ -194,7 +194,7 @@ public:
 
     vy += dt * 0.5*  lambda * (E - B(x) * vx);
     vx += dt *0.5 *lambda * vy * B(x);
-    y += vy * dt;
+    y += vy * dt* 0.5;
     x += vx * dt * 0.5;
     }
 
@@ -209,15 +209,15 @@ public:
      
 
       vx += dt *0.5 *lambda * vy * B(x);
-      x += vx * dt;
+      x += vx * dt* 0.5;
       vy += dt * 0.5*  lambda * (E - B(x) * vx);
-      y += vy * dt; 
+      y += vy * dt* 0.5; 
 
  
       vy += dt * 0.5*  lambda * (E - B(x) * vx);
-      x += vx * dt;
+      x += vx * dt* 0.5;
       vx += dt *0.5 *lambda * vy * B(x);
-      y += vy *dt;
+      y += vy *dt* 0.5;
       
 
 
